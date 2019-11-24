@@ -21,11 +21,6 @@ export const drawWeaving = (ctx, grid, zoom, imageWidth, imageHeight, bytes, wea
       }
     }
   } else {
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, imageWidth, imageHeight);
-
-    ctx.fillStyle = 'black';
-
     for (let y = 0; y < weavingHeight; y++) {
       const xx = (y % weaveHeight) * weaveWidth;
       for (let x = 0; x < weavingWidth; x++) {
