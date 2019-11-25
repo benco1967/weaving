@@ -19,21 +19,13 @@ const WeftCuttingPlane = ({zoom, height, planeX, planeY, warpWeftHeight, setCutt
 
     useEffect(() => {
       const ctx = canvasRef.current.getContext('2d');
+      const plane = planeX % weaveWidth;
+      const radius = .4 * zoom;
 
       ctx.fillStyle = 'white';
       ctx.fillRect(0, 0, width, height);
 
-      ctx.fillStyle = 'black';
-      const plane = planeX % weaveWidth;
-      for (let y = 0; y < weavingHeight; y++) {
-        const xx = plane % weaveWidth + (y % weaveHeight) * weaveWidth;
-        ctx.beginPath();
-        ctx.ellipse((2 - warpHeight[xx]) * zoom, y * zoom + halfZoom, halfZoom, halfZoom, 0, 0, TWO_PI);
-        ctx.closePath();
-        ctx.fill();
-      }
-
-      ctx.lineWidth = zoom / 2;
+      ctx.lineWidth = radius * 2;
       ctx.strokeStyle = 'gray';
       ctx.beginPath();
       let xPrev = (2 - weftHeight[plane]) * zoom;
@@ -48,6 +40,15 @@ const WeftCuttingPlane = ({zoom, height, planeX, planeY, warpWeftHeight, setCutt
         yPrev = yCurrent;
       }
       ctx.stroke();
+
+      ctx.fillStyle = 'black';
+      for (let y = 0; y < weavingHeight; y++) {
+        const xx = plane % weaveWidth + (y % weaveHeight) * weaveWidth;
+        ctx.beginPath();
+        ctx.ellipse((2 - warpHeight[xx]) * zoom, y * zoom + halfZoom, radius, radius, 0, 0, TWO_PI);
+        ctx.closePath();
+        ctx.fill();
+      }
 
       ctx.lineWidth = 1;
       ctx.strokeStyle = 'red';
