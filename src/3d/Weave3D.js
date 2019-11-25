@@ -62,7 +62,7 @@ const getWarpYarnPath = (warpHeight, weaveWidth, weaveHeight, y) => {
 const createWarpYarns = (warpHeight, weaveWidth, weaveHeight, scene) => {
 
   for(let y = 0; y < weaveHeight; y++) {
-    const path = getWeftYarnPath(warpHeight, weaveWidth, weaveHeight, y);
+    const path = getWarpYarnPath(warpHeight, weaveWidth, weaveHeight, y);
     createYarn(scene, "warp" + y, path);
   }
 };
