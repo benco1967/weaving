@@ -17,14 +17,11 @@ const Styled = styled.table`
   }
 `;
 
-const SwitchWeave = ({grid, zoom, width, height, weave, warp, warpColors, weft, weftColors, currentHeightBuffer, heightBuffers, toggle}) => {
+const SwitchWeave = ({grid, zoom, width, height, weave, warp, warpColors, weft, weftColors, physical, toggle}) => {
 
   const [mode, setMode] = useState(false);
   const [cuttingPlaneX, setCuttingPlaneX] = useState(0);
   const [cuttingPlaneY, setCuttingPlaneY] = useState(0);
-  const warpWeftHeight = [heightBuffers.warpHeightBuffers[currentHeightBuffer],
-    heightBuffers.weftHeightBuffers[currentHeightBuffer],
-    weave[1], weave[2]];
 
   zoom = zoom || 4;
 
@@ -40,7 +37,7 @@ const SwitchWeave = ({grid, zoom, width, height, weave, warp, warpColors, weft, 
       </tr>
       <tr>
         <td><WarpCuttingPlane zoom={zoom} width={width} planeX={cuttingPlaneX} planeY={cuttingPlaneY}
-                              warpWeftHeight={warpWeftHeight} setCuttingPlane={setCuttingPlaneX}/></td>
+                              physical={physical} setCuttingPlane={setCuttingPlaneX}/></td>
       </tr>
       <tr>
         <td>
@@ -52,7 +49,7 @@ const SwitchWeave = ({grid, zoom, width, height, weave, warp, warpColors, weft, 
                            toggle={toggle}/>)}
         </td>
         <td><WeftCuttingPlane zoom={zoom} height={height} planeX={cuttingPlaneX} planeY={cuttingPlaneY}
-                              warpWeftHeight={warpWeftHeight} setCuttingPlane={setCuttingPlaneY}/></td>
+                              physical={physical} setCuttingPlane={setCuttingPlaneY}/></td>
         <td><WeftImage grid={grid} zoom={zoom} width={10} height={height} weft={weft} colors={weftColors}/></td>
       </tr>
       </tbody>
