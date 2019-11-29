@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 
-const WeftImage = ({grid, zoom, height, width, weft, colors}) => {
+const WeftImage = ({grid, zoom, height, width, yarns, colors}) => {
 
   zoom = zoom || 4;
   const yarnCount = height / zoom;
@@ -10,7 +10,7 @@ const WeftImage = ({grid, zoom, height, width, weft, colors}) => {
   useEffect(() => {
     const ctx = canvasRef.current.getContext('2d');
     for (let y = 0; y < yarnCount; y++) {
-      ctx.fillStyle = colors[weft[y % weft.length]];
+      ctx.fillStyle = colors[yarns[y % yarns.length]];
       ctx.fillRect(0, y * zoom, width, zoom);
     }
 
@@ -20,7 +20,7 @@ const WeftImage = ({grid, zoom, height, width, weft, colors}) => {
         ctx.fillRect(0,y*zoom, width, 1);
       }
     }
-  }, [grid, zoom, yarnCount, weft, colors]);
+  }, [grid, zoom, yarnCount, yarns, colors]);
 
   return (
     <canvas ref={canvasRef} height={height} width={width}/>

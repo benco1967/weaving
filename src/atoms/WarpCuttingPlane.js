@@ -8,8 +8,8 @@ const drawClearBackGround = (ctx, zoom, width) => {
   ctx.fillStyle = 'white';
   ctx.fillRect(0, 0, width, height);
 };
-const drawWarp = (ctx, zoom, width, planeY, physical) => {
-  const {warpHeight, weaveWidth, weaveHeight} = physical;
+const drawWeft = (ctx, zoom, width, planeY, physical) => {
+  const {weftHeight, weaveWidth, weaveHeight} = physical;
   const plane = planeY % weaveHeight;
   const radius = RADIUS * zoom;
   const halfZoom = zoom * 0.5;
@@ -19,12 +19,12 @@ const drawWarp = (ctx, zoom, width, planeY, physical) => {
   ctx.strokeStyle = 'gray';
   ctx.beginPath();
   let xPrev = halfZoom;
-  let yPrev = (2 + warpHeight[plane * weaveWidth]) * zoom;
+  let yPrev = (2 + weftHeight[plane * weaveWidth]) * zoom;
   ctx.moveTo(xPrev, yPrev);
   for (let x = 1; x < weavingWidth; x++) {
     const xx = x % weaveWidth + plane * weaveWidth;
     const xCurrent = x * zoom + halfZoom;
-    const yCurrent = (2 + warpHeight[xx]) * zoom;
+    const yCurrent = (2 + weftHeight[xx]) * zoom;
     ctx.bezierCurveTo(xPrev + halfZoom, yPrev, xCurrent - halfZoom, yCurrent, xCurrent, yCurrent);
     xPrev = xCurrent;
     yPrev = yCurrent;
@@ -32,9 +32,9 @@ const drawWarp = (ctx, zoom, width, planeY, physical) => {
   ctx.stroke();
 };
 
-const drawWeft = (ctx, zoom, width, planeY, physical) => {
+const drawWarp = (ctx, zoom, width, planeY, physical) => {
   const TWO_PI = 2 * Math.PI;
-  const {weftHeight, weaveWidth, weaveHeight} = physical;
+  const {warpHeight, weaveWidth, weaveHeight} = physical;
   const plane = planeY % weaveHeight;
   const radius = RADIUS * zoom;
   const halfZoom = zoom * 0.5;
@@ -44,7 +44,7 @@ const drawWeft = (ctx, zoom, width, planeY, physical) => {
     const xx = x % weaveWidth + plane * weaveWidth;
     ctx.fillStyle = 'black';
     ctx.beginPath();
-    ctx.ellipse(x * zoom + halfZoom, (2 + weftHeight[xx]) * zoom, radius, radius, 0, 0, TWO_PI);
+    ctx.ellipse(x * zoom + halfZoom, (2 + warpHeight[xx]) * zoom, radius, radius, 0, 0, TWO_PI);
     ctx.closePath();
     ctx.fill();
   }
@@ -81,8 +81,8 @@ const WarpCuttingPlane = ({zoom, width, planeX, planeY, physical, setCuttingPlan
           if (physical.status === 'computing') {
             const ctx = canvasRef.current.getContext('2d');
             drawClearBackGround(ctx, zoom, width);
-            drawWarp(ctx, zoom, width, planeY, physical);
             drawWeft(ctx, zoom, width, planeY, physical);
+            drawWarp(ctx, zoom, width, planeY, physical);
             drawCuttingPlane(ctx, zoom, width, planeX);
           }
         }, 100);

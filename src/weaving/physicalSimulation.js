@@ -1,6 +1,6 @@
 
 const NB_STEPS = 5;
-const NB_MAX_STEPS = 1000;
+const NB_MAX_STEPS = 4000;
 
 const compute = (self) => {
   if(self.step > NB_MAX_STEPS) {
@@ -9,6 +9,7 @@ const compute = (self) => {
   else {
     const maxStep = self.step + NB_STEPS;
     for (; self.step < maxStep; self.step++) {
+      console.log(self.step, self.status)
       const t = self.step % 3;
       const tNext = (t + 1) % 3;
       const tPrev = (t + 2) % 3; // = -1
@@ -18,8 +19,16 @@ const compute = (self) => {
         const warpViscosityEffect = speedWarp * .25;
         const weftViscosityEffect = speedWeft * .25;
         const line = Math.floor(i / self.weaveWidth) * self.weaveWidth;
-        const warpEffect = (-2 * self.warpHeightBuffers[t][i] + self.warpHeightBuffers[t][(i + 1) % self.weaveWidth + line] + self.warpHeightBuffers[t][(i + self.weaveWidth - 1) % self.weaveWidth + line]) * 0.01;
-        const weftEffect = (-2 * self.weftHeightBuffers[t][i] + self.weftHeightBuffers[t][(i + self.weaveWidth) % self.size] + self.weftHeightBuffers[t][(i + self.size - self.weaveWidth) % self.size]) * 0.01;
+        const weftEffect = (
+          -2 * self.weftHeightBuffers[t][i]
+          + self.weftHeightBuffers[t][(i + 1) % self.weaveWidth + line]
+          + self.weftHeightBuffers[t][(i + self.weaveWidth - 1) % self.weaveWidth + line]
+        ) * 0.01;
+        const warpEffect = (
+          -2 * self.warpHeightBuffers[t][i]
+          + self.warpHeightBuffers[t][(i + self.weaveWidth) % self.size]
+          + self.warpHeightBuffers[t][(i + self.size - self.weaveWidth) % self.size]
+        ) * 0.01;
         const distWarpWeft = self.warpHeightBuffers[t][i] - self.weftHeightBuffers[t][i];
         const absDist = Math.abs(distWarpWeft);
         const weftWarpEffect = absDist > .8 ? 0 : (absDist > .7 ? distWarpWeft * 0.01 : distWarpWeft * 0.03);

@@ -7,10 +7,20 @@ import SwitchWeave from "./molecule/SwitchWeave";
 import {PhysicalWeave} from "./weaving/physicalSimulation";
 import {getEmbossedWeave} from "./weaving/embossed";
 import Weave3D from "./3d/Weave3D";
+import * as BABYLON from 'babylonjs';
 
 const colors = ['blue', 'green', 'yellow', 'orange', 'red', 'magenta', 'white', 'black'];
-const warp = [2];
-const weft = [3];
+const colors3D = [
+  new BABYLON.Color3(0.5, 0.5, 1),
+  new BABYLON.Color3(0.5, 1, 0.5),
+  new BABYLON.Color3(1, 1, 0.5),
+  new BABYLON.Color3(1, .75, 0.5),
+  new BABYLON.Color3(1, 0.5, 0.5),
+  new BABYLON.Color3(1, 0.5, 1),
+  new BABYLON.Color3(1, 1, 1),
+  new BABYLON.Color3(0.25, 0.25, 0.25)];
+const warpYarns = [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0];
+const weftYarns = [2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 2, 2];
 
 const weave =
 //getPlainWeave();
@@ -35,7 +45,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Weave3D physical={physical}/>
+        <Weave3D physical={physical} warpYarns={warpYarns} warpColors={colors3D} weftYarns={weftYarns} weftColors={colors3D}/>
         <div>
           <button onClick={() => setGrid(!grid)}>grid</button>
         </div>
@@ -46,7 +56,7 @@ const App = () => {
         </div>
         <SwitchWeave mode={'weave'} grid={grid} zoom={zoom} height={250} width={500}
                      weave={weave}
-                     warp={warp} warpColors={colors} weft={weft} weftColors={colors}
+                     warpYarns={warpYarns} warpColors={colors} weftYarns={weftYarns} weftColors={colors}
                      physical={physical}
                      toggle={toggle}/>
       </header>

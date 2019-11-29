@@ -1,6 +1,6 @@
 export const drawWeaving = (ctx, grid, zoom, imageWidth, imageHeight, bytes, weaveWidth, weaveHeight, warp, warpColors, weft, weftColors, x, y) => {
 
-  const weavingWidth = imageWidth/ zoom;
+  const weavingWidth = imageWidth / zoom;
   const weavingHeight = imageHeight / zoom;
 
   if (x !== undefined && false) {
@@ -9,8 +9,8 @@ export const drawWeaving = (ctx, grid, zoom, imageWidth, imageHeight, bytes, wea
     for (let j = y; j < weavingHeight; j += weaveHeight) {
       for (let i = x; i < weavingWidth; i += weaveWidth) {
         ctx.fillStyle = knot ?
-          weftColors[weft[j % weft.length]] :
-          warpColors[warp[i % warp.length]];
+          warpColors[warp[i % warp.length]] :
+        weftColors[weft[j % weft.length]] ;
         ctx.fillRect(i * zoom, j * zoom, zoom, zoom);
 
         if (zoom > 4 && grid) {
@@ -25,8 +25,8 @@ export const drawWeaving = (ctx, grid, zoom, imageWidth, imageHeight, bytes, wea
       const xx = (y % weaveHeight) * weaveWidth;
       for (let x = 0; x < weavingWidth; x++) {
         ctx.fillStyle = bytes[xx + x % weaveWidth] ?
-          weftColors[weft[y % weft.length]] :
-          warpColors[warp[x % warp.length]];
+          warpColors[warp[x % warp.length]] :
+          weftColors[weft[y % weft.length]];
         ctx.fillRect(x * zoom, y * zoom, zoom, zoom);
       }
     }

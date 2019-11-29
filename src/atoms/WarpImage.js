@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 
-const WarpImage = ({grid, zoom, width, height, warp, colors}) => {
+const WarpImage = ({grid, zoom, width, height, yarns, colors}) => {
 
   zoom = zoom || 4;
   const yarnCount = width / zoom;
@@ -10,7 +10,7 @@ const WarpImage = ({grid, zoom, width, height, warp, colors}) => {
   useEffect(() => {
     const ctx = canvasRef.current.getContext('2d');
     for (let x = 0; x < yarnCount; x++) {
-      ctx.fillStyle = colors[warp[x % warp.length]];
+      ctx.fillStyle = colors[yarns[x % yarns.length]];
       ctx.fillRect(x * zoom, 0, zoom, height);
     }
 
@@ -20,7 +20,7 @@ const WarpImage = ({grid, zoom, width, height, warp, colors}) => {
         ctx.fillRect(x*zoom, 0, 1, height);
       }
     }
-  }, [grid, zoom, yarnCount, warp, colors]);
+  }, [grid, zoom, yarnCount, yarns, colors]);
 
   return (
     <canvas ref={canvasRef} width={width} height={height}/>

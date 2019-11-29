@@ -17,7 +17,7 @@ const Styled = styled.table`
   }
 `;
 
-const SwitchWeave = ({grid, zoom, width, height, weave, warp, warpColors, weft, weftColors, physical, toggle}) => {
+const SwitchWeave = ({grid, zoom, width, height, weave, warpYarns, warpColors, weftYarns, weftColors, physical, toggle}) => {
 
   const [mode, setMode] = useState(false);
   const [cuttingPlaneX, setCuttingPlaneX] = useState(0);
@@ -29,7 +29,7 @@ const SwitchWeave = ({grid, zoom, width, height, weave, warp, warpColors, weft, 
     <Styled mode={mode}>
       <tbody>
       <tr>
-        <td><WarpImage grid={grid} zoom={zoom} width={width} height={10} warp={warp} colors={warpColors}/></td>
+        <td><WarpImage grid={grid} zoom={zoom} width={width} height={10} yarns={warpYarns} colors={warpColors}/></td>
         <td></td>
         <td>
           <div onClick={() => setMode(!mode)}/>
@@ -45,12 +45,12 @@ const SwitchWeave = ({grid, zoom, width, height, weave, warp, warpColors, weft, 
             (<WeaveImage grid={grid} zoom={zoom} height={height} width={width} weave={weave}
                          toggle={toggle}/>) :
             (<WeavingImage grid={grid} zoom={zoom} height={height} width={width} weave={weave}
-                           warp={warp} warpColors={warpColors} weft={weft} weftColors={weftColors}
+                           warpYarns={warpYarns} warpColors={warpColors} weftYarns={weftYarns} weftColors={weftColors}
                            toggle={toggle}/>)}
         </td>
         <td><WeftCuttingPlane zoom={zoom} height={height} planeX={cuttingPlaneX} planeY={cuttingPlaneY}
                               physical={physical} setCuttingPlane={setCuttingPlaneY}/></td>
-        <td><WeftImage grid={grid} zoom={zoom} width={10} height={height} weft={weft} colors={weftColors}/></td>
+        <td><WeftImage grid={grid} zoom={zoom} width={10} height={height} yarns={weftYarns} colors={weftColors}/></td>
       </tr>
       </tbody>
     </Styled>
